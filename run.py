@@ -105,7 +105,7 @@ def run(url):
     doc_all = pq(url, encodind="gb2312", headers={'User-Agent': 'Mozilla/5.0 '
                                                                 '(Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
                                                                 '(KHTML, like Gecko) Chrome/46.0.2490.71 Safari/537.36'})
-    all_link = [link.attr('href') for link in doc_all.items('#AListBox li a')]
+    all_link = [link.attr('href') for link in doc_all.items('#hetong-list a')]
     read_contact_html(all_link)
 
 # 运行
