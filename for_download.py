@@ -68,23 +68,30 @@ def start_download(first_url,document_path_header):
     if(check_len(url_list, url_name_list)):
         for url_index in range(len(url_list)):
             print("开始下载本页第" + str(url_index) + "个合同")
-            download_url(url_list[url_index], url_name_list[url_index],document_path_header)
+            try:
+                download_url(url_list[url_index], url_name_list[url_index],document_path_header)
+            except Exception as e:
+                print(e)
+                continue
+
 
 
 # 对合同名进行容错
 def check_file_name(file_name):
-    return file_name.replace("/","_")
+    file_name = file_name.replace("/","_")
+    file_name = file_name.replace("?","_")
+    return file_name
 
 
 # 爬虫运行下载
 def run(first_url,document_path_header):
     start_download(first_url,document_path_header)
     if(get_last_url(first_url) !=None):
-        run(get_last_url(first_url),"")
+        run(get_last_url(first_url),document_path_header)
 
 
 if __name__ == "__main__":
     # get_download_url("https:" + "//download.64365.com/contact/default.aspx?id=751812&&type=1",'个人租房合同范本')
-    url = "https://www.64365.com/contract/zlht/"
-    file_header = "F:/contract"
+    url = "https://www.64365.com/contract/lwht/"
+    file_header = "G:/律师-劳动"
     run(url,file_header)
